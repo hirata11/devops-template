@@ -18,6 +18,8 @@ on:
       ACR: 
         description: "Registry"
         required: true
+      tag: 
+        description: "How to tag the image. Default: latest"   
 
 runs:
   using: "composite"
@@ -30,9 +32,18 @@ runs:
         login-server: ${{ inputs.REGISTRY_LOGIN_SERVER }}
         username: ${{ inputs.REGISTRY_USERNAME }}
         password: ${{ inputs.REGISTRY_PASSWORD }}
+    - name: Set the tag
+      shell: bash
+      run: |
+        if [ -z "${{inputs.tag}}" ]
+        then
+          echo "final_tag=latest" >> $GITHUB_ENV
+        else
+          echo "final_tag=${{inputs.tag}}" >> $GITHUB_ENV
+        fi 
     - name: Build and Push the Image
       uses: docker/build-push-action@v2
       with:
         context: .
         push: true
-        tags: ${{ inputs.REGISTRY_LOGIN_SERVER }}/${{ inputs.IMAGE }}:lastest
+        tags: ${{ inputs.REGISTRY_LOGIN_SERVER }}/${{ inputs.IMAGE }}:${{env.final_tag}}
