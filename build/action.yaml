@@ -35,4 +35,4 @@ runs:
       with:
         context: .
         push: true
-        tags: ${{ inputs.ACR }}/${{ inputs.IMAGE }}:$lastest
+        tags: ${{ inputs.REGISTRY_USERNAME }}/${{ inputs.IMAGE }}:$lastest
