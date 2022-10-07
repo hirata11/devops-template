@@ -31,10 +31,10 @@ runs:
     - name: Build
       run: |-
         docker build \
-          --tag "{{ inputs.ACR }}/${{ inputs.IMAGE }}:${{ github.sha }}" \
+          --tag "{{ inputs.ACR }}/${{ inputs.IMAGE }}:lastest" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     - name: Publish
       run: |-
-        docker push "${{ inputs.ACR }}/${{ inputs.IMAGE }}:${{ github.sha }}"
+        docker push "${{ inputs.ACR }}/${{ inputs.IMAGE }}:$lastest"
