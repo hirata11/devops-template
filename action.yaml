@@ -16,9 +16,10 @@ on:
         description: Ambiente
         required: true
 
-jobs:
-  Build-Docker:
+runs:
+  using: "composite"
   environment: development
   steps:
-      - name: Setup BuildX
-        uses: docker/setup-buildx-action@v1
+    steps:
+        - name: Setup BuildX
+          uses: docker/setup-buildx-action@v1
