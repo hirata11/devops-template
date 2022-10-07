@@ -19,6 +19,5 @@ on:
 runs:
   using: "composite"
   steps:
-    steps:
-        - name: Setup BuildX
-          uses: docker/setup-buildx-action@v1
+    - name: Setup BuildX
+      uses: docker/setup-buildx-action@v1
