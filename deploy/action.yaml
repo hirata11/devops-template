@@ -21,11 +21,11 @@ runs:
     - name: Logando no Azure para Deployment
       uses: azure/login@v1
       with:
-        creds: ${{ inputsinputsinputs.AZURE_CREDENTIALS }}
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
 
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
       with:
         # Name of the Azure Web App
         app-name: convert-app
-        images: "${{ inputsinputs.ACR }}/${{ inputs.IMAGE }}:lastest" 
+        images: "${{ inputs.ACR }}/${{ inputs.IMAGE }}:lastest" 
