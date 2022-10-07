@@ -1,1 +1,25 @@
-build
+name: build
+
+on:
+  workflow_call:
+    inputs:
+      DEPLOYMENT_NAME:
+        description: "nome da aplicação"
+        required: true
+      IMAGE: 
+        description: "nome da imagem"
+        required: true
+      ACR: 
+        description: "Registry"
+        required: true
+      Env:
+        description: Ambiente
+        required: true
+
+jobs:
+  Build-Docker:
+  runs-on: ubuntu-latest
+  environment: ${{inputs.ENV}}
+  steps:
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v1
