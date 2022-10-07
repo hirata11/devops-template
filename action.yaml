@@ -18,7 +18,6 @@ on:
 
 runs:
   using: "composite"
-  environment: development
   steps:
     steps:
         - name: Setup BuildX
