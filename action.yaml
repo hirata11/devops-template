@@ -18,7 +18,7 @@ on:
 
 jobs:
   Build-Docker:
-  environment: ${{inputs.ENV}}
+  environment: ${{ inputs.Env }}
   steps:
       - name: Setup BuildX
         uses: docker/setup-buildx-action@v1
