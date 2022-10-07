@@ -3,17 +3,20 @@ name: build
 on:
   workflow_call:
     inputs:
-      DEPLOYMENT_NAME:
+      REGISTRY_LOGIN_SERVER:
         description: "nome da aplicação"
+        required: true
+      REGISTRY_USERNAME:
+        description: Ambiente
+        required: true
+      REGISTRY_PASSWORD:
+        description: Ambiente
         required: true
       IMAGE: 
         description: "nome da imagem"
         required: true
       ACR: 
         description: "Registry"
-        required: true
-      Env:
-        description: Ambiente
         required: true
 
 runs:
@@ -22,7 +25,7 @@ runs:
     - name: "Login to ACR"
       uses: azure/docker-login@v1
       with:
-        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+        login-server: ${{ inputs.REGISTRY_LOGIN_SERVER }}
+        username: ${{ inputs.REGISTRY_USERNAME }}
+        password: ${{ inputs.REGISTRY_PASSWORD }}
      
