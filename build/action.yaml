@@ -22,8 +22,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup BuildX
-      uses: docker/setup-buildx-action@v1
     - name: "Login to ACR"
       uses: azure/docker-login@v1
       with:
