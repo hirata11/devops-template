@@ -1,21 +1,19 @@
 
 name: deploy
 
-on:
-  workflow_call:
-    inputs:
-      AZURE_CREDENTIALS:
-        description: "credenciais azure"
-        required: true
-      IMAGE: 
-        description: "nome da imagem"
-        required: true
-      ACR: 
-        description: "Registry"
-        required: true
-      TAG:
-        description: "tag"
-        required: true
+inputs:
+  AZURE_CREDENTIALS:
+    description: "credenciais azure"
+    required: true
+  IMAGE: 
+    description: "nome da imagem"
+    required: true
+  ACR: 
+    description: "Registry"
+    required: true
+  TAG:
+    description: "tag"
+    required: true
 
 
 runs:
