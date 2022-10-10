@@ -25,10 +25,20 @@ runs:
       uses: azure/login@v1
       with:
         creds: ${{ inputs.AZURE_CREDENTIALS }}
+        
+    - name: Set the tag
+      shell: bash
+      run: |
+        if [ -z "${{inputs.TAG}}" ]
+        then
+          echo "final_tag=latest" >> $GITHUB_ENV
+        else
+          echo "final_tag=${{inputs.TAG}}" >> $GITHUB_ENV
+        fi 
 
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
       with:
         # Name of the Azure Web App
         app-name: convert-app
-        images: "${{ inputs.ACR }}/${{ inputs.IMAGE }}:${{ inputs.TAG }}" 
+        images: "${{ inputs.ACR }}/${{ inputs.IMAGE }}:${{env.final_tag}}" 
