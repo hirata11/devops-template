@@ -12,6 +12,7 @@ runs:
     - name: checkbranch
       id: check 
       run: echo "::set-output name=branchexist::$(git ls-remote --heads origin 'release-${{ inputs.tag }}')"
+      shell: bash
     - name: Create Branch
       if: ${{ steps.check.outputs.branchexist }} == ""
       uses: peterjgrainger/action-create-branch@v2.2.0

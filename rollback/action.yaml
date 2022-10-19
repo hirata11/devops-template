@@ -12,6 +12,7 @@ runs:
   using: "composite"
   steps:
     - run: sudo apt-get install -y jq
+      shell: bash
 
     - name: getreleaseid  
       run: |
@@ -24,7 +25,9 @@ runs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ inputs.token }}" \
           https://api.github.com/repos/hirata11/${{ inputs.app }}/releases/$release
-          
+      shell: bash
+
     - run: |
         sleep 1m
         curl -sL https://api.github.com/repos/hirata11/${{ inputs.app }}/releases/latest | jq -r ".tag_name"
+      shell: bash
