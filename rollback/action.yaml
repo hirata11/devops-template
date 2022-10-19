@@ -1,0 +1,30 @@
+name: rollback
+
+inputs:
+  token:
+    description: "pat"
+  tag: 
+    description: "How to tag the image. Default: latest"
+  app:
+    description: "nome app"
+
+runs:
+  using: "composite"
+  steps:
+    - run: sudo apt-get install -y jq
+
+    - name: getreleaseid  
+      run: |
+        release=$(curl \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer $${{ inputs.token }}" \
+          https://api.github.com/repos/hirata11/${{ inputs.app }}/releases/tags/${{ inputs.tag }} | jq '.id')
+        curl \
+          -X DELETE \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ inputs.token }}" \
+          https://api.github.com/repos/hirata11/${{ inputs.app }}/releases/$release
+          
+    - run: |
+        sleep 1m
+        curl -sL https://api.github.com/repos/hirata11/${{ inputs.app }}/releases/latest | jq -r ".tag_name"
