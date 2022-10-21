@@ -25,6 +25,6 @@ runs:
       uses: tukasz/direct-merge-action@master
       with:
         GITHUB_TOKEN: ${{ inputs.token }}
-        source-branch: release
+        source-branch: development
         target-branch: 'release-${{ inputs.tag }}'
         commit-message: "merge dev to release-${{ inputs.tag }}"
