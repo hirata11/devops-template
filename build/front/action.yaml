@@ -3,6 +3,8 @@ name: build
 inputs:
   TOKEN:
     description: "github token"
+  env:
+    description: "environment"
 
 runs:
   using: "composite"
@@ -20,7 +22,10 @@ runs:
       shell: bash
     - run: zip -qq -r ./build.zip ./build
       shell: bash
-    - uses: xresloader/upload-to-github-release@main
+
+    - name: Upload a Build Artifact
+      if: ${{ inputs.env }} == "prd"
+      uses: xresloader/upload-to-github-release@main
       env:
         GITHUB_TOKEN: ${{ inputs.TOKEN }}
       with:
@@ -29,3 +34,12 @@ runs:
         draft: false
         overwrite: false
         prerelease: false
+
+    - name: Upload a Build Artifact
+    if: ${{ inputs.env }} == "dev" || ${{ inputs.env }} == "hml"
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: build${{ inputs.env }}
+        # A file, directory or wildcard pattern that describes what to upload
+        path:  ./build
