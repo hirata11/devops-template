@@ -1,5 +1,4 @@
 name: Deploy
-
 inputs:
   token:
     description: "static site token"
@@ -7,8 +6,6 @@ inputs:
     description: "pat"
   tag: 
     description: "How to tag the image. Default: latest"
-
-
 runs:
   using: "composite"
   steps:
