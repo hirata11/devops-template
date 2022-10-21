@@ -26,7 +26,7 @@ runs:
       with:
           args: unzip -qq ./build.zip -d ./
 
-    - run: cp  ./build ./swa-cli.config.json
+    - run: cp  ./build/swa-cli.config.json ./
       shell: bash
 
     - run: ls -lRa
