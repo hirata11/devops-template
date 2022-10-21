@@ -13,8 +13,7 @@ runs:
       id: check 
       #run: echo "::set-output name=branchexist::$(git ls-remote --heads origin 'release-${{ inputs.tag }}')"
       run: | 
-        branch=$(git ls-remote --heads origin 'release-${{ inputs.tag }}')"
-        if [ "$branch" == "" ]; then
+        if [ $(git ls-remote --heads origin 'release-${{ inputs.tag }}') == "" ]; then
           echo ::set-output name=branchexist::false
         else
           echo ::set-output name=branchexist::true
