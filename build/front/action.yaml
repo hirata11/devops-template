@@ -36,7 +36,7 @@ runs:
         prerelease: false
 
     - name: Upload a Build Artifact
-    if: ${{ inputs.env }} == "dev" || ${{ inputs.env }} == "hml"
+      if: ${{ inputs.env }} == "dev" || ${{ inputs.env }} == "hml"
       uses: actions/upload-artifact@v3.1.0
       with:
         # Artifact name
