@@ -31,7 +31,7 @@ runs:
       with:
         name: build${{ inputs.env }}
         # Destination path
-        path: ./build
+        path: ./
 
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
