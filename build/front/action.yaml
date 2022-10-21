@@ -1,0 +1,22 @@
+name: build
+runs:
+  using: "composite"
+  steps:
+    - run: npm i -g @azure/static-web-apps-cli
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+    - run: swa
+    - run: cp  ./swa-cli.config.json ./build
+    - run: zip -qq -r ./build.zip ./build
+    - uses: xresloader/upload-to-github-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "build.zip"
+        update_latest_release: true
+        draft: false
+        overwrite: false
+        prerelease: false

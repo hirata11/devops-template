@@ -1,0 +1,36 @@
+name: Deploy
+
+inputs:
+  token:
+    description: "static site token"
+  pat:
+    description: "pat"
+  tag: 
+    description: "How to tag the image. Default: latest"
+
+
+runs:
+  using: "composite"
+  steps:
+    - run: npm i -g @azure/static-web-apps-cli
+
+
+    - name: Download Release Asset
+      id: download_release_asset
+      uses: i3h/download-release-asset@v1
+      with:
+        owner: hirata11
+        repo: reactstatic
+        tag: ${{ inputs.tag }} 
+        file: build.zip 
+        path: ./
+        token: ${{ inputs.pat }} 
+
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+          args: unzip -qq ./build.zip -d ./          
+      
+    - run: ls -lRa
+
+    - run: swa deploy --deployment-token ${{ inputs.token }} 
