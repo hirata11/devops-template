@@ -24,7 +24,11 @@ runs:
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
-          args: unzip -qq ./build.zip -d ./          
+          args: unzip -qq ./build.zip -d ./
+
+    - run: cp  ./build ./swa-cli.config.json
+      shell: bash
+
     - run: ls -lRa
       shell: bash
     - run: swa deploy --deployment-token ${{ inputs.token }}
