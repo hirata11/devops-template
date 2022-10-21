@@ -13,8 +13,7 @@ runs:
   using: "composite"
   steps:
     - run: npm i -g @azure/static-web-apps-cli
-
-
+      shell: bash
     - name: Download Release Asset
       id: download_release_asset
       uses: i3h/download-release-asset@v1
@@ -24,13 +23,12 @@ runs:
         tag: ${{ inputs.tag }} 
         file: build.zip 
         path: ./
-        token: ${{ inputs.pat }} 
-
+        token: ${{ inputs.pat }}
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
           args: unzip -qq ./build.zip -d ./          
-      
     - run: ls -lRa
-
-    - run: swa deploy --deployment-token ${{ inputs.token }} 
+      shell: bash
+    - run: swa deploy --deployment-token ${{ inputs.token }}
+      shell: bash
