@@ -20,17 +20,17 @@ runs:
         fi
       shell: bash
     - name: Create Branch
-      if: ${{ !steps.check.outputs.branchexist }}
+      if: ${{ steps.check.outputs.branchexist }}
       uses: peterjgrainger/action-create-branch@v2.2.0
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       with:
         branch: 'release-${{ inputs.tag }}'
     - name: Merge Branch
-      if: ${{ steps.check.outputs.branchexist }}
+      if: ${{ !steps.check.outputs.branchexist }}
       uses: tukasz/direct-merge-action@master
       with:
         GITHUB_TOKEN: ${{ inputs.token }}
         source-branch: development
         target-branch: 'release-${{ inputs.tag }}'
-        commit-message: "merge dev to release-${{ inputs.tag }}"
+        commit-message: "merge development to release-${{ inputs.tag }}"
