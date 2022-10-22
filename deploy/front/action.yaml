@@ -26,7 +26,7 @@ runs:
         token: ${{ inputs.pat }}
   
     - name: Download a Build Artifact
-      if: inputs.env == 'development'  || inputs.env == ''staging
+      if: inputs.env == 'development'  || inputs.env == 'staging'
       uses: actions/download-artifact@v3.0.0
       with:
         name: build${{ inputs.env }}
