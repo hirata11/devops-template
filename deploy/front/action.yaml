@@ -41,6 +41,5 @@ runs:
     - run: sudo mv  ./build/swa-cli.config.json ./
       shell: bash
 
-      shell: bash
     - run: swa deploy --env ${{ inputs.env }} --deployment-token ${{ inputs.token }}
       shell: bash
