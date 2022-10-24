@@ -13,11 +13,11 @@ runs:
       id: check 
       #run: echo "::set-output name=branchexist::$(git ls-remote --heads origin 'release-${{ inputs.tag }}')"
       run: | 
-        if [ $(git ls-remote --heads origin 'release-${{ inputs.tag }}') == "" ]; then
-          echo ::set-output name=branchexist::false
-        else
-          echo ::set-output name=branchexist::true
-        fi
+        if [ $(git ls-remote --heads origin 'release-${{ inputs.tag }}')-eq ""] 
+        then 
+        echo ::set-output name=branchexist::false
+        else echo ::set-output name=branchexist::true
+        fi 
       shell: bash
     - name:
       run: echo ${{ steps.check.outputs.branchexist }}
