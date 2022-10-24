@@ -19,6 +19,9 @@ runs:
           echo ::set-output name=branchexist::true
         fi
       shell: bash
+    - name:
+      run: echo ${{ steps.check.outputs.branchexist }}
+      shell: bash
     - name: Create Branch
       if: ${{ steps.check.outputs.branchexist }}
       uses: peterjgrainger/action-create-branch@v2.2.0
