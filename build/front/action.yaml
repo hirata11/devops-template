@@ -5,6 +5,8 @@ inputs:
     description: "github token"
   env:
     description: "environment"
+  tag: 
+    description: "tag"
 
 runs:
   using: "composite"
@@ -30,10 +32,11 @@ runs:
         GITHUB_TOKEN: ${{ inputs.TOKEN }}
       with:
         file: "build.zip"
-        update_latest_release: true
+        update_latest_release: false
         draft: false
         overwrite: false
         prerelease: false
+        tag_name: ${{ inputs.TAG }}
 
     - name: Upload a Build Artifact
       if: inputs.env == 'development' || inputs.env == 'staging'
