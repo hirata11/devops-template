@@ -1,0 +1,28 @@
+name: Deploy
+inputs:
+  token:
+    description: "static site token"
+  env:
+    description: "environment"
+runs:
+  using: "composite"
+  steps:
+    - run: npm i -g @azure/static-web-apps-cli
+      shell: bash
+  
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: build
+        path: ./
+
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+          args: unzip -qq ./build.zip -d ./
+
+    - run: sudo mv  ./build/swa-cli.config.json ./
+      shell: bash
+
+    - run: swa deploy --env ${{ inputs.env }} --deployment-token ${{ inputs.token }}
+      shell: bash
