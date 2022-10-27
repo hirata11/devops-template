@@ -11,16 +11,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: npm i -g @azure/static-web-apps-cli
-      shell: bash
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
         cache: 'npm'
-    - run: swa
+    - run: yarn install # Instalar as dependecias
       shell: bash
-    - run: cp  ./swa-cli.config.json ./build
+    - run: yarn run build
       shell: bash
     - run: zip -qq -r ./build.zip ./build
       shell: bash
