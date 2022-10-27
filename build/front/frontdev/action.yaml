@@ -3,20 +3,12 @@ name: build
 runs:
   using: "composite"
   steps:
-    - run: npm i -g @azure/static-web-apps-cli
+    - run: yarn install # Instalar as dependecias
       shell: bash
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: 'npm'
-    - run: swa
-      shell: bash
-    - run: cp  ./swa-cli.config.json ./build
+    - run: yarn run build
       shell: bash
     - run: zip -qq -r ./build.zip ./build
       shell: bash
-
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
@@ -24,3 +16,5 @@ runs:
         name: build
         # A file, directory or wildcard pattern that describes what to upload
         path:  ./build.zip
+
+
