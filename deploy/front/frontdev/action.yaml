@@ -21,8 +21,5 @@ runs:
       with:
           args: unzip -qq ./build.zip -d ./
 
-    - run: sudo mv  ./build/swa-cli.config.json ./
-      shell: bash
-
-    - run: swa deploy --env ${{ inputs.env }} --deployment-token ${{ inputs.token }}
+    - run: swa deploy ./build --env ${{ inputs.env }} --deployment-token ${{ inputs.token }}
       shell: bash
