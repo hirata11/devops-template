@@ -1,0 +1,33 @@
+name: Deploy
+inputs:
+  token:
+    description: "static site token"
+  env:
+    description: "environment"
+runs:
+  using: "composite"
+  steps:
+    - run: npm i -g @azure/static-web-apps-cli
+      shell: bash
+
+    - name: set environment
+      run: |
+        if [[ (echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}) == *"dev01"* ]]; then
+            echo "ENVS=hml01" >> "$GITHUB_ENV"
+        else
+            echo "ENVS=hml02" >> "$GITHUB_ENV"
+        fi
+  
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: build${{ env.ENVS }}
+        path: ./
+
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+          args: unzip -qq ./build${{ env.ENVS }}.zip -d ./
+
+    - run: swa deploy ./build --env ${{ env.ENVS }} --deployment-token ${{ inputs.token }}
+      shell: bash

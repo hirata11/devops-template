@@ -1,0 +1,31 @@
+name: build
+
+inputs:
+  env:
+    description: "environment"
+
+runs:
+  using: "composite"
+  steps:
+    - run: yarn install # Instalar as dependecias
+      shell: bash
+    - run: yarn run build
+      shell: bash
+    - name: set environment
+      run: |
+        if [[ (echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}) == *"dev01"* ]]; then
+            echo "ENVS=hml01" >> "$GITHUB_ENV"
+        else
+            echo "ENVS=hml02" >> "$GITHUB_ENV"
+        fi
+    - run: zip -qq -r ./build${{ env.ENVS }}.zip ./build
+      shell: bash
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: build
+        # A file, directory or wildcard pattern that describes what to upload
+        path:  ./build${{ env.ENVS }}.zip
+
+
