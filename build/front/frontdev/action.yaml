@@ -1,9 +1,5 @@
 name: build
 
-inputs:
-  env:
-    description: "environment"
-
 runs:
   using: "composite"
   steps:
@@ -11,7 +7,7 @@ runs:
       shell: bash
     - run: yarn run build
       shell: bash
-    - run: zip -qq -r ./build${{ inputs.env }}.zip ./build
+    - run: zip -qq -r ./build.zip ./build
       shell: bash
     - run: ls -lRa
       shell: bash
@@ -21,6 +17,6 @@ runs:
         # Artifact name
         name: build
         # A file, directory or wildcard pattern that describes what to upload
-        path:  ./build${{ inputs.env }}.zip
+        path:  ./*.zip
 
 

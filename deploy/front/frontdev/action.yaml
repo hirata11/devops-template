@@ -13,13 +13,13 @@ runs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v3.0.0
       with:
-        name: build${{ inputs.env }}
+        name: build
         path: ./
 
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
-          args: unzip -qq ./build${{ inputs.env }}.zip -d ./
+          args: unzip -qq ./build.zip -d ./
 
     - run: swa deploy ./build --env ${{ inputs.env }} --deployment-token ${{ inputs.token }}
       shell: bash
