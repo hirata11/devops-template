@@ -13,6 +13,8 @@ runs:
       shell: bash
     - run: zip -qq -r ./build${{ inputs.env }}.zip ./build
       shell: bash
+    - run: ls -lRa
+      shell: bash
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
