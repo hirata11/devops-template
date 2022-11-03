@@ -24,6 +24,7 @@ runs:
       shell: bash
 
     - name: Upload a Build Artifact
+      if: inputs.env == 'production'
       uses: xresloader/upload-to-github-release@main
       env:
         GITHUB_TOKEN: ${{ inputs.TOKEN }}
@@ -34,3 +35,12 @@ runs:
         overwrite: false
         prerelease: false
         tag_name: ${{ inputs.TAG }}
+
+    - name: Upload a Build Artifact
+      if: inputs.env == 'development' || inputs.env == 'staging'
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: build${{ inputs.env }}
+        # A file, directory or wildcard pattern that describes what to upload
+        path:  ./build.zip
