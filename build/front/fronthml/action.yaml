@@ -13,7 +13,7 @@ runs:
       shell: bash
     - name: set environment
       run: |
-        if [[ (echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}) == *"dev01"* ]]; then
+        if [[ (echo ${{ inputs.env }} == *"dev01"* ]]; then
             echo "ENVS=hml01" >> "$GITHUB_ENV"
         else
             echo "ENVS=hml02" >> "$GITHUB_ENV"
