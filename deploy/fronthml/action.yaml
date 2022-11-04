@@ -1,0 +1,24 @@
+name: Deploy
+inputs:
+  token:
+    description: "static site token"
+
+runs:
+  using: "composite"
+  steps:
+    - run: npm i -g @azure/static-web-apps-cli
+      shell: bash
+  
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: build
+        path: ./
+
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+          args: unzip -qq ./build.zip -d ./
+
+    - run: swa deploy ./build --env hml --deployment-token ${{ inputs.token }}
+      shell: bash
