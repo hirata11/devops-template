@@ -21,13 +21,12 @@ runs:
         tag: ${{ inputs.tag }} 
         file: build.zip 
         path: ./
-        token: ${{ inputs.pat }}
-  
+        token: ${{ inputs.pat }}  
 
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
           args: unzip -qq ./build.zip -d ./
 
-    - run: swa deploy ./build --deployment-token ${{ inputs.token }}
+    - run: swa deploy ./build --env preprod --deployment-token ${{ inputs.token }}
       shell: bash
