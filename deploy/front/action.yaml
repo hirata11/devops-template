@@ -16,6 +16,8 @@ runs:
       id: download_release_asset
       uses: i3h/download-release-asset@v1
       with:
+        owner: 4intelligence
+        repo: 4hub-faas
         tag: ${{ inputs.tag }} 
         file: build.zip 
         path: ./
