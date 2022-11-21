@@ -3,6 +3,10 @@ name: build
 runs:
   using: "composite"
   steps:
+    - name: Install Node
+      uses: actions/setup-node@v2 # Lib para instalar o node em nossa VM
+      with:
+          node-version: '16' # Qual versão do node utilizaremos
     - run: yarn install # Instalar as dependecias
       shell: bash
     - run: yarn run build
