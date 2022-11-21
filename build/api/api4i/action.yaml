@@ -60,4 +60,4 @@ runs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
         build-args: |
-          GIT_ACCESS_TOKEN=${{ env.git_token }}
+          GIT_ACCESS_TOKEN=${{ inputs.git_token }}
