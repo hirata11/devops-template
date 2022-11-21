@@ -17,7 +17,9 @@ inputs:
     description: "Registry"
     required: true
   tag: 
-    description: "How to tag the image. Default: latest"   
+    description: "How to tag the image. Default: latest"
+  git_token:
+    description: "git_acess_token"
 
 runs:
   using: "composite"
@@ -58,4 +60,4 @@ runs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
         build-args: |
-          GIT_ACCESS_TOKEN=${{ secrets.GIT_ACCESS_TOKEN }}
+          GIT_ACCESS_TOKEN=${{ env.git_token }}
