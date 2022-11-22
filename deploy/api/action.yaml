@@ -19,11 +19,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Logando no Azure para Deployment
-      uses: azure/login@v1
-      with:
-        creds: ${{ inputs.AZURE_CREDENTIALS }}
-        
     - name: Set the tag
       shell: bash
       run: |
@@ -39,4 +34,5 @@ runs:
       with:
         # Name of the Azure Web App
         app-name: convert-app
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         images: "${{ inputs.ACR }}/${{ inputs.IMAGE }}:${{env.final_tag}}" 
