@@ -20,6 +20,8 @@ runs:
       shell: bash
     - run: yarn run build
       shell: bash
+    - run: cp ./staticwebapp.config.json ./build
+      shell: bash
     - run: zip -qq -r ./build.zip ./build
       shell: bash
 
