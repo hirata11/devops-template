@@ -28,5 +28,5 @@ runs:
       with:
           args: unzip -qq ./build.zip -d ./
 
-    - run: swa deploy ./build --env preprod --deployment-token ${{ inputs.token }}
+    - run: swa deploy ./build --env Production --deployment-token ${{ inputs.token }}
       shell: bash
